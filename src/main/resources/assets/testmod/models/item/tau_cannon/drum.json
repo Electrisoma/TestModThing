@@ -1,0 +1,84 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "resotech:item/tau_cannon_ammo",
+		"particle": "resotech:item/tau_cannon"
+	},
+	"elements": [
+		{
+			"name": "drum right",
+			"from": [8, 7.5, 8],
+			"to": [9.5, 8.5, 10],
+			"rotation": {"angle": -45, "axis": "z", "origin": [8, 8, 9]},
+			"faces": {
+				"north": {"uv": [4, 0, 6, 3], "rotation": 270, "texture": "#1"},
+				"east": {"uv": [8, 4, 6, 0], "rotation": 90, "texture": "#1"},
+				"south": {"uv": [4, 0, 6, 3], "rotation": 90, "texture": "#1"},
+				"west": {"uv": [0, 0, 0, 0], "rotation": 90, "texture": "#1"},
+				"up": {"uv": [0, 0, 4, 3], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [0, 0, 4, 3], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "drum top",
+			"from": [7.5, 8, 8],
+			"to": [8.5, 9.5, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 9]},
+			"faces": {
+				"north": {"uv": [4, 0, 6, 3], "texture": "#1"},
+				"east": {"uv": [0, 0, 4, 3], "texture": "#1"},
+				"south": {"uv": [4, 0, 6, 3], "texture": "#1"},
+				"west": {"uv": [0, 0, 4, 3], "texture": "#1"},
+				"up": {"uv": [8, 3, 6, 0], "texture": "#1"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#1"}
+			}
+		},
+		{
+			"name": "drum left",
+			"from": [6.5, 7.5, 8],
+			"to": [8, 8.5, 10],
+			"rotation": {"angle": 45, "axis": "z", "origin": [8, 8, 9]},
+			"faces": {
+				"north": {"uv": [4, 0, 6, 3], "rotation": 90, "texture": "#1"},
+				"east": {"uv": [0, 0, 0, 0], "rotation": 270, "texture": "#1"},
+				"south": {"uv": [4, 0, 6, 3], "rotation": 270, "texture": "#1"},
+				"west": {"uv": [8, 4, 6, 0], "rotation": 270, "texture": "#1"},
+				"up": {"uv": [0, 0, 4, 3], "rotation": 270, "texture": "#1"},
+				"down": {"uv": [0, 0, 4, 3], "rotation": 270, "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 0, -3.75],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"thirdperson_lefthand": {
+			"translation": [0, 0, -3.75],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"firstperson_righthand": {
+			"translation": [-2, 4.5, 3.5]
+		},
+		"firstperson_lefthand": {
+			"translation": [-2, 4.5, 3.5]
+		},
+		"gui": {
+			"rotation": [27, -135, 0],
+			"translation": [-1, 0, 0],
+			"scale": [1.4, 1.4, 1.4]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0]
+		}
+	},
+	"groups": [
+		{
+			"name": "drum",
+			"origin": [8, 8, 8.5],
+			"color": 0,
+			"children": [0, 1, 2]
+		}
+	]
+}

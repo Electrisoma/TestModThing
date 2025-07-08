@@ -1,0 +1,8 @@
+{
+  "block.resotech.machine_block": "Machine Thing",
+  "block.resotech.second_block": "Second Block",
+  "item.resotech.tau_cannon": "Tau Cannon",
+  "item.resotech.test_item": "Test Item",
+  "itemGroup.resotech.blocks": "Blocks",
+  "itemGroup.resotech.resotech": "ResoTech"
+}
