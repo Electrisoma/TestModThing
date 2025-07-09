@@ -1,0 +1,8 @@
+{
+  "block.testmod.machine_block": "Machine Thing",
+  "block.testmod.second_block": "Second Block",
+  "item.testmod.tau_cannon": "Tau Cannon",
+  "item.testmod.test_item": "Test Item",
+  "itemGroup.testmod.blocks": "Blocks",
+  "itemGroup.testmod.testmod": "TestMod"
+}
