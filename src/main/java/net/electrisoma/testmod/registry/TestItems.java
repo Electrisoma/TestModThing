@@ -37,7 +37,6 @@ public class TestItems {
             .item("tau_cannon", TauCannonItem::new)
             .properties(p -> p
                     .stacksTo(1)
-                    .rarity(Rarity.COMMON)
-            )
+                    .rarity(Rarity.COMMON))
             .register();
 }

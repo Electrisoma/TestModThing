@@ -6,8 +6,11 @@ import net.createmod.catnip.lang.LangBuilder;
 import net.electrisoma.testmod.multiloader.PlatformInfo;
 import net.electrisoma.testmod.registry.ModSetup;
 import net.electrisoma.testmod.registry.TestTabs;
+import net.electrisoma.testmod.registry.items.tau_cannon.TauCannonItem;
+import net.electrisoma.testmod.registry.items.tau_cannon.TauCannonItemRenderer;
 import net.electrisoma.visceralib.VisceraLib;
 import net.electrisoma.visceralib.api.registration.VisceralRegistrar;
+import net.fabricmc.fabric.impl.client.rendering.BuiltinItemRendererRegistryImpl;
 import net.minecraft.resources.ResourceLocation;
 
 import com.mojang.logging.LogUtils;
@@ -35,14 +38,14 @@ public class TestMod {
 
 		ModSetup.register();
 
-		onRegister();
+		//onRegister();
 	}
 
-	@SuppressWarnings("UnimplementedExpectPlatform")
-	@ExpectPlatform
-	public static void onRegister() {
-		throw new AssertionError();
-	}
+//	@SuppressWarnings("UnimplementedExpectPlatform")
+//	@ExpectPlatform
+//	public static void onRegister() {
+//		throw new AssertionError();
+//	}
 
 	public static LangBuilder lang() {
 		return new LangBuilder(MOD_ID);

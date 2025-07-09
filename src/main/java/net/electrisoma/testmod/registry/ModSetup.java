@@ -5,7 +5,7 @@ public class ModSetup {
         TestTabs.init();
         TestBlocks.init();
         TestItems.init();
-        //ResoTechFluids.init();
+        TestParticles.init();
         TestTags.init();
     }
 }

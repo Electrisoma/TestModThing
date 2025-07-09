@@ -2,6 +2,7 @@ package net.electrisoma.testmod.neoforge;
 
 import net.electrisoma.testmod.TestMod;
 
+import net.electrisoma.testmod.registry.TestParticles;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
@@ -21,8 +22,6 @@ public class TestModImpl {
 
 		neoforgeBus.addListener(this::onServerStarted);
 	}
-
-	public static void onRegister() {}
 
 	public void onServerStarted(ServerStartedEvent event) {
 		TestMod.LOGGER.info(TestMod.SERVER_START);

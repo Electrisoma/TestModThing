@@ -12,7 +12,7 @@ logoFile="icon.png"
 logoBlur=false
 
 [[mixins]]
-config = "resotech-common.mixins.json"
+config = "testmod-common.mixins.json"
 
 [[dependencies."${id}"]]
 modId="flywheel"

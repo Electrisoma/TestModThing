@@ -11,6 +11,7 @@ import net.electrisoma.testmod.registry.TestItems;
 import net.electrisoma.testmod.registry.items.tau_cannon.TauCannonItemRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.world.item.Items;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -26,20 +27,20 @@ public class TestModClientImpl {
         TestModClient.init();
     }
 
-    @SubscribeEvent
-    public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-        event.registerItem(new IClientItemExtensions() {
-            private final BlockEntityWithoutLevelRenderer renderer = new TauCannonItemRenderer(
-                    Minecraft.getInstance().getBlockEntityRenderDispatcher(),
-                    Minecraft.getInstance().getEntityModels()
-            );
-
-            @Override
-            public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return renderer;
-            }
-        }, TestItems.TAU_CANNON.get());
-    }
+//    @SubscribeEvent
+//    public static void registerItemRenderers(RegisterClientExtensionsEvent event) {
+//        System.out.println("RegisterClientExtensionsEvent fired");
+//
+//        event.registerItem(new IClientItemExtensions() {
+//            private final BlockEntityWithoutLevelRenderer renderer = new TauCannonItemRenderer();
+//
+//            @Override
+//            public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+//                System.out.println("Providing TauCannonItemRenderer instance");
+//                return renderer;
+//            }
+//        }, TestItems.TAU_CANNON.get());
+//    }
 }
 
 //    @SubscribeEvent

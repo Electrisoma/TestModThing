@@ -14,10 +14,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.electrisoma.resotech.fabric.ResoTechImpl"
+      "net.electrisoma.testmod.fabric.TestModImpl"
     ],
     "client": [
-      "net.electrisoma.resotech.client.fabric.ResoTechClientImpl"
+      "net.electrisoma.testmod.client.fabric.TestModClientImpl"
     ]
   },
   "mixins": [

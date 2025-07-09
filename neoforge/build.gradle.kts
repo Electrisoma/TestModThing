@@ -45,19 +45,6 @@ configurations {
     get("developmentNeoForge").extendsFrom(commonBundle)
 }
 
-//sourceSets {
-//    create("datagen") {
-//        runtimeClasspath += sourceSets["main"].runtimeClasspath
-//        compileClasspath += sourceSets["main"].compileClasspath
-//    }
-//    main {
-//        resources {
-//            srcDir("src/generated/resources")
-//            exclude("**/.cache")
-//        }
-//    }
-//}
-
 loom {
     decompilers {
         get("vineflower").apply { // Adds names to lambdas - useful for mixins

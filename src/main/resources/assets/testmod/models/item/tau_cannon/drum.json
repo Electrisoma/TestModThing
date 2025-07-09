@@ -2,15 +2,15 @@
 	"format_version": "1.9.0",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "resotech:item/tau_cannon_ammo",
-		"particle": "resotech:item/tau_cannon"
+		"1": "testmod:item/tau_cannon_ammo",
+		"particle": "testmod:item/tau_cannon"
 	},
 	"elements": [
 		{
 			"name": "drum right",
 			"from": [8, 7.5, 8],
 			"to": [9.5, 8.5, 10],
-			"rotation": {"angle": -45, "axis": "z", "origin": [8, 8, 9]},
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [8, 8, 9]},
 			"faces": {
 				"north": {"uv": [4, 0, 6, 3], "rotation": 270, "texture": "#1"},
 				"east": {"uv": [8, 4, 6, 0], "rotation": 90, "texture": "#1"},
@@ -24,7 +24,7 @@
 			"name": "drum top",
 			"from": [7.5, 8, 8],
 			"to": [8.5, 9.5, 10],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 9]},
+			"rotation": {"angle": 0, "axis": "z", "origin": [8, 8, 9]},
 			"faces": {
 				"north": {"uv": [4, 0, 6, 3], "texture": "#1"},
 				"east": {"uv": [0, 0, 4, 3], "texture": "#1"},
@@ -38,7 +38,7 @@
 			"name": "drum left",
 			"from": [6.5, 7.5, 8],
 			"to": [8, 8.5, 10],
-			"rotation": {"angle": 45, "axis": "z", "origin": [8, 8, 9]},
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [8.00067, 8.00167, 9]},
 			"faces": {
 				"north": {"uv": [4, 0, 6, 3], "rotation": 90, "texture": "#1"},
 				"east": {"uv": [0, 0, 0, 0], "rotation": 270, "texture": "#1"},
