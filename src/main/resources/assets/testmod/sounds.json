@@ -1,0 +1,8 @@
+{
+  "tau_cannon_charge": {
+    "subtitle": "sounds.testmod.tau_cannon_charge",
+    "sounds": [
+      "testmod:tau_cannon_charge"
+    ]
+  }
+}

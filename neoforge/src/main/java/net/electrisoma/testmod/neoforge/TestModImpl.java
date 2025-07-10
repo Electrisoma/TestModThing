@@ -2,7 +2,7 @@ package net.electrisoma.testmod.neoforge;
 
 import net.electrisoma.testmod.TestMod;
 
-import net.electrisoma.testmod.registry.TestParticles;
+import net.electrisoma.testmod.registry.TestSounds;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
@@ -20,6 +20,7 @@ public class TestModImpl {
 
 		TestMod.init();
 
+		TestSounds.register(eventBus);
 		neoforgeBus.addListener(this::onServerStarted);
 	}
 

@@ -4,6 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.render.CachedBuffers;
+import net.electrisoma.testmod.client.render.TestPartials;
+import net.electrisoma.testmod.registry.items.util.renderers.AbstractItemRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -15,26 +17,25 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TauCannonItemRenderer {
-    private final PartialModel fullCannon;
-    private final PartialModel drum;
-
+public class TauCannonItemRenderer extends AbstractItemRenderer {
     private static final Map<Integer, Float> angleMap = new HashMap<>();
     private static final Map<Integer, Float> speedMap = new HashMap<>();
     private static final Map<Integer, Long> lastTimeMap = new HashMap<>();
 
-    public TauCannonItemRenderer(PartialModel fullCannon, PartialModel drum) {
-        this.fullCannon = fullCannon;
-        this.drum = drum;
+    @Override
+    protected PartialModel getMainModel() {
+        return TestPartials.TAU_CANNON_ITEM;
     }
 
-    public void render(ItemStack stack, ItemDisplayContext ctx, PoseStack poseStack,
-                       MultiBufferSource bufferSource, int light, int overlay) {
-        poseStack.pushPose();
+    private PartialModel getDrumModel() {
+        return TestPartials.TAU_CANNON_DRUM;
+    }
 
+    @Override
+    protected void applyTransform(ItemDisplayContext ctx, PoseStack poseStack) {
         switch (ctx) {
             case THIRD_PERSON_RIGHT_HAND, THIRD_PERSON_LEFT_HAND -> {
-                poseStack.translate(-0.125, 0.0125, -0.25); // L-R D-U F-B
+                poseStack.translate(-0.125, 0.01125, -0.3334);
                 poseStack.scale(1.25f, 1.25f, 1.25f);
             }
             case FIRST_PERSON_RIGHT_HAND, FIRST_PERSON_LEFT_HAND -> {
@@ -42,106 +43,71 @@ public class TauCannonItemRenderer {
                 poseStack.scale(1.0f, 1.0f, 1.0f);
             }
             case GUI -> {
-                poseStack.translate(1.425, 0, -0.2);
+                poseStack.translate(1.425, -0.1, -0.3);
                 poseStack.mulPose(Axis.XP.rotationDegrees(27));
                 poseStack.mulPose(Axis.YP.rotationDegrees(-135));
-                poseStack.mulPose(Axis.ZP.rotationDegrees(0));
                 poseStack.scale(1.4f, 1.4f, 1.4f);
             }
-            case FIXED -> {
-                poseStack.mulPose(Axis.XP.rotationDegrees(0));
-                poseStack.mulPose(Axis.YP.rotationDegrees(90));
-                poseStack.mulPose(Axis.ZP.rotationDegrees(0));
-            }
-            default -> {
-                poseStack.scale(1.0f, 1.0f, 1.0f);
-            }
+            case FIXED -> poseStack.mulPose(Axis.YP.rotationDegrees(90));
+            default -> poseStack.scale(1.0f, 1.0f, 1.0f);
         }
+    }
 
-        var fullBuf = CachedBuffers.partial(fullCannon, Blocks.AIR.defaultBlockState());
-        fullBuf.light(light).overlay(overlay).renderInto(poseStack, bufferSource.getBuffer(RenderType.cutout()));
-
+    @Override
+    protected void renderOverlay(ItemStack stack, ItemDisplayContext ctx, PoseStack poseStack,
+                                 MultiBufferSource bufferSource, int light, int overlay) {
         if (ctx == ItemDisplayContext.GUI) {
             poseStack.pushPose();
-            float xOffset = 0.5f;
-            float yOffset = 0.5f;
-            float zOffset = 0.53125f;
-            poseStack.translate(xOffset, yOffset, zOffset);
-            poseStack.translate(-xOffset, -yOffset, -zOffset);
-
-            var drumBuf = CachedBuffers.partial(drum, Blocks.AIR.defaultBlockState());
-            drumBuf.light(light).overlay(overlay).renderInto(poseStack, bufferSource.getBuffer(RenderType.cutout()));
-            poseStack.popPose();
+            poseStack.translate(0.5, 0.5, 0.5);
+            poseStack.translate(-0.5, -0.5, -0.5);
+            renderDrum(poseStack, bufferSource, light, overlay, 0f);
             poseStack.popPose();
             return;
         }
 
+        float angle = updateRotation(stack);
+
+        poseStack.pushPose();
+        poseStack.translate(0.5, 0.5, 0.53125);
+        poseStack.mulPose(Axis.ZP.rotationDegrees(angle));
+        poseStack.translate(-0.5, -0.5, -0.53125);
+        renderDrum(poseStack, bufferSource, light, overlay, angle);
+        poseStack.popPose();
+    }
+
+    private void renderDrum(PoseStack poseStack, MultiBufferSource bufferSource,
+                            int light, int overlay, float angle) {
+        var drumBuf = CachedBuffers.partial(getDrumModel(), Blocks.AIR.defaultBlockState());
+        drumBuf.light(light).overlay(overlay).renderInto(poseStack, bufferSource.getBuffer(RenderType.cutout()));
+    }
+
+    private float updateRotation(ItemStack stack) {
         int key = System.identityHashCode(stack);
-        long currentTime = System.currentTimeMillis();
-        long lastTime = lastTimeMap.getOrDefault(key, currentTime);
-        float currentSpeed = speedMap.getOrDefault(key, 0f);
-        float accumulatedAngle = angleMap.getOrDefault(key, 0f);
+        long now = System.currentTimeMillis();
+        long last = lastTimeMap.getOrDefault(key, now);
+        float speed = speedMap.getOrDefault(key, 0f);
+        float angle = angleMap.getOrDefault(key, 0f);
+        float dt = (now - last) / 1000f;
 
-        float deltaSeconds = (currentTime - lastTime) / 1000f;
-
-        var player = Minecraft.getInstance().player;
-
-        float baseSpeed = 60f;
-        float maxExtraSpeed = 500f;
+        Minecraft mc = Minecraft.getInstance();
         float targetSpeed = 0f;
         boolean spinning = false;
 
-        if (player != null) {
-            ItemStack usedStack = player.getUseItem();
-            if (usedStack == stack && player.isUsingItem()) {
-                int maxUseDuration = stack.getUseDuration(player);
-                int maxChargeTicks = 40;
-
-                int remaining = player.getUseItemRemainingTicks();
-                int chargeTicks = maxUseDuration - remaining;
-                chargeTicks = Math.max(0, Math.min(chargeTicks, maxChargeTicks));
-
-                float ramp = (float) chargeTicks / maxChargeTicks;
-                targetSpeed = baseSpeed + ramp * maxExtraSpeed;
-                spinning = true;
-            }
+        if (mc.player != null && mc.player.isUsingItem() && mc.player.getUseItem() == stack) {
+            int charge = stack.getUseDuration(mc.player) - mc.player.getUseItemRemainingTicks();
+            float ramp = Math.min(charge, 40) / 40f;
+            targetSpeed = 60f + ramp * 500f;
+            spinning = true;
         }
 
-        if (spinning) {
-            currentSpeed = targetSpeed;
-        } else {
-            float friction = 200f;
-            if (currentSpeed > 0f) {
-                currentSpeed -= friction * deltaSeconds;
-                if (currentSpeed < 0f) currentSpeed = 0f;
-            }
-        }
+        if (spinning) speed = targetSpeed;
+        else speed = Math.max(0f, speed - 200f * dt);
 
-        if (currentSpeed > 0f) {
-            accumulatedAngle += currentSpeed * deltaSeconds;
-            accumulatedAngle %= 360f;
-        }
+        if (speed > 0f) angle = (angle + speed * dt) % 360f;
 
-        lastTimeMap.put(key, currentTime);
-        speedMap.put(key, currentSpeed);
-        angleMap.put(key, accumulatedAngle);
-
-        float angle = accumulatedAngle;
-
-        poseStack.pushPose();
-
-        float xOffset = 0.5f;
-        float yOffset = 0.5f;
-        float zOffset = 0.53125f;
-
-        poseStack.translate(xOffset, yOffset, zOffset);
-        poseStack.mulPose(Axis.ZP.rotationDegrees(angle));
-        poseStack.translate(-xOffset, -yOffset, -zOffset);
-
-        var drumBuf = CachedBuffers.partial(drum, Blocks.AIR.defaultBlockState());
-        drumBuf.light(light).overlay(overlay).renderInto(poseStack, bufferSource.getBuffer(RenderType.cutout()));
-
-        poseStack.popPose();
-        poseStack.popPose();
+        lastTimeMap.put(key, now);
+        speedMap.put(key, speed);
+        angleMap.put(key, angle);
+        return angle;
     }
 }
