@@ -7,6 +7,7 @@ public class ModSetup {
         TestItems.init();
         TestParticles.init();
         TestTags.init();
+        TestNetwork.register();
     }
 }
 

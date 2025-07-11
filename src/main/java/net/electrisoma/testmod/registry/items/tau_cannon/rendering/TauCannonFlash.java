@@ -1,4 +1,4 @@
-package net.electrisoma.testmod.registry.items.tau_cannon;
+package net.electrisoma.testmod.registry.items.tau_cannon.rendering;
 
 import foundry.veil.api.client.render.VeilRenderSystem;
 import foundry.veil.api.client.render.light.PointLight;
@@ -36,7 +36,6 @@ public class TauCannonFlash {
         VeilEventPlatform.INSTANCE.onVeilRenderLevelStage((stage, levelRenderer, bufferSource, matrixStack,
                                                            frustumMatrix, projectionMatrix, renderTick,
                                                            deltaTracker, camera, frustum) -> {
-
             Minecraft mc = Minecraft.getInstance();
             ClientLevel world = mc.level;
             if (world == null) return;
@@ -68,7 +67,7 @@ public class TauCannonFlash {
                 Vec3 pos = player.getEyePosition(1.0f).add(offset);
                 timed.light.setPosition(pos.x, pos.y, pos.z);
 
-                float brightness = 0f;
+                float brightness;
                 if (timed.age <= FLASH_DURATION_TICKS) {
                     brightness = 7.5f;
                 } else if (timed.age <= FLASH_DURATION_TICKS + FADE_DURATION_TICKS) {
@@ -113,7 +112,8 @@ public class TauCannonFlash {
     }
 
     public static void spawnMuzzleFlash(Player player) {
-        if (!player.level().isClientSide || player != Minecraft.getInstance().player) return;
+        if (!player.level().isClientSide || player != Minecraft.getInstance().player)
+            return;
 
         UUID playerId = player.getUUID();
 

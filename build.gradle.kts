@@ -86,15 +86,15 @@ tasks.build {
     description = "Must run through 'chiseledBuild'"
 }
 
-tasks.register("${mod.id}Publish") {
-    when (val platform = System.getenv("PLATFORM")) {
-        "all" -> {
-            dependsOn(tasks.build,
-                ":fabric:publish", ":neoforge:publish", ":common:publish",
-                ":fabric:publishMods", ":neoforge:publishMods")
-        }
-        "fabric", "neoforge" -> {
-            dependsOn("${platform}:build", "${platform}:publish", "${platform}:publishMods")
-        }
-    }
-}
+//tasks.register("${mod.id}Publish") {
+//    when (val platform = System.getenv("PLATFORM")) {
+//        "all" -> {
+//            dependsOn(tasks.build,
+//                ":fabric:publish", ":neoforge:publish", ":common:publish",
+//                ":fabric:publishMods", ":neoforge:publishMods")
+//        }
+//        "fabric", "neoforge" -> {
+//            dependsOn("${platform}:build", "${platform}:publish", "${platform}:publishMods")
+//        }
+//    }
+//}

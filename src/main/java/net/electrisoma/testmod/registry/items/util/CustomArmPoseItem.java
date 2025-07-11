@@ -7,6 +7,5 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 public interface CustomArmPoseItem {
-    @Nullable
-    ArmPose getArmPose(ItemStack stack, AbstractClientPlayer player, InteractionHand hand);
+    @Nullable ArmPose getArmPose(ItemStack stack, AbstractClientPlayer player, InteractionHand hand);
 }

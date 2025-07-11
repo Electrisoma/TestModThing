@@ -1,17 +1,14 @@
-package net.electrisoma.testmod.registry.items.tau_cannon;
+package net.electrisoma.testmod.registry.items.tau_cannon.rendering;
 
 import com.mojang.blaze3d.vertex.*;
-import foundry.veil.api.client.render.VeilRenderer;
 import foundry.veil.api.client.render.vertex.VertexArray;
 import foundry.veil.api.client.render.vertex.VertexArrayBuilder;
 import foundry.veil.platform.VeilEventPlatform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.lwjgl.system.MemoryStack;

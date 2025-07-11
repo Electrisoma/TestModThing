@@ -2,12 +2,12 @@ package net.electrisoma.testmod.neoforge;
 
 import net.electrisoma.testmod.TestMod;
 
-import net.electrisoma.testmod.registry.TestSounds;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.client.model.BakedModelWrapper;
 
 @Mod(TestMod.MOD_ID)
 public class TestModImpl {
@@ -20,7 +20,6 @@ public class TestModImpl {
 
 		TestMod.init();
 
-		TestSounds.register(eventBus);
 		neoforgeBus.addListener(this::onServerStarted);
 	}
 
